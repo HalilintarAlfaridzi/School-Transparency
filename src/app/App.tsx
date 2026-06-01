@@ -41,13 +41,11 @@ import { ManageTransactionsPage } from "../pages/treasurer/ManageTransactionsPag
 import { TreasurerDashboardPage } from "../pages/treasurer/TreasurerDashboardPage";
 import { RequireRole } from "../routes/RequireRole";
 
-const routerBasename = import.meta.env.BASE_URL === "/" ? undefined : import.meta.env.BASE_URL.replace(/\/$/, "");
-
 export function App() {
   return (
     <AuthProvider>
       <FinanceProvider>
-        <HashRouter basename={routerBasename}>
+        <HashRouter>
           <Routes>
           <Route element={<PublicLayout />}>
             <Route index element={<LandingPage />} />

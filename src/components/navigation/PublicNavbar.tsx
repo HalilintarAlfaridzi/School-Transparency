@@ -23,7 +23,7 @@ export function PublicNavbar() {
     <header className="sticky top-0 z-30 border-b border-slate-200 bg-white/95 backdrop-blur">
       <div className="page-container flex h-16 items-center justify-between gap-4">
         <NavLink to="/" className="flex items-center gap-3 font-bold text-slate-950">
-          <img src="/school-mark.svg" alt="" className="h-9 w-9 rounded-md" />
+          <img src="public/logo/logo-nav.png" alt="" className="h-9 w-9 rounded-md" />
           <span>School Transparency</span>
         </NavLink>
         <nav className="hidden items-center gap-1 lg:flex" aria-label="Navigasi publik">
