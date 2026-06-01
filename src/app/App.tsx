@@ -1,4 +1,4 @@
-import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import { HashRouter, Navigate, Route, Routes } from "react-router-dom";
 import { AuthProvider } from "../contexts/AuthContext";
 import { FinanceProvider } from "../contexts/FinanceContext";
 import { AuthLayout } from "../layouts/AuthLayout";
@@ -47,7 +47,7 @@ export function App() {
   return (
     <AuthProvider>
       <FinanceProvider>
-        <BrowserRouter basename={routerBasename}>
+        <HashRouter basename={routerBasename}>
           <Routes>
           <Route element={<PublicLayout />}>
             <Route index element={<LandingPage />} />
@@ -137,7 +137,7 @@ export function App() {
 
           <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
-        </BrowserRouter>
+        </HashRouter>
       </FinanceProvider>
     </AuthProvider>
   );
