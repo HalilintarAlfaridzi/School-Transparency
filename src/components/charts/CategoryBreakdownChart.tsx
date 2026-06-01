@@ -12,11 +12,12 @@ const palette = ["#1d4ed8", "#0f766e", "#f59e0b", "#dc2626", "#64748b", "#7c3aed
 
 interface CategoryBreakdownChartProps {
   data: Array<{ name: string; value: number }>;
+  className?: string;
 }
 
-export function CategoryBreakdownChart({ data }: CategoryBreakdownChartProps) {
+export function CategoryBreakdownChart({ data, className = "h-80 w-full" }: CategoryBreakdownChartProps) {
   return (
-    <div className="h-80 w-full">
+    <div className={className}>
       <ResponsiveContainer width="100%" height="100%">
         <PieChart>
           <Pie

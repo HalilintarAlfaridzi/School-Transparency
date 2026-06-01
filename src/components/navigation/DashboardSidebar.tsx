@@ -58,7 +58,7 @@ export function DashboardSidebar() {
     <aside className="border-b border-slate-200 bg-white lg:sticky lg:top-0 lg:h-screen lg:w-72 lg:border-b-0 lg:border-r">
       <div className="flex h-full flex-col">
         <div className="flex items-center gap-3 border-b border-slate-200 px-5 py-4">
-          <img src="/school-mark.svg" alt="" className="h-10 w-10 rounded-md" />
+            <img src={`${import.meta.env.BASE_URL}logo/logo-nav.png`} alt="School Transparency" className="h-10 w-10 rounded-md" />
           <div>
             <p className="font-bold text-slate-950">School Transparency</p>
             <p className="text-xs font-medium text-slate-500">{roleLabels[role]}</p>

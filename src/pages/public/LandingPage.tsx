@@ -4,11 +4,14 @@ import {
   ClipboardCheck,
   Eye,
   FileCheck2,
+  Landmark,
+  ReceiptText,
   ShieldCheck,
+  WalletCards,
 } from "lucide-react";
+import type { ReactNode } from "react";
 import { CategoryBreakdownChart } from "../../components/charts/CategoryBreakdownChart";
 import { IncomeExpenseChart } from "../../components/charts/IncomeExpenseChart";
-import { MetricCard } from "../../components/ui/MetricCard";
 import { SectionHeader } from "../../components/ui/SectionHeader";
 import { Button } from "../../components/ui/Button";
 import { EmptyState } from "../../components/ui/EmptyState";
@@ -39,6 +42,39 @@ const features = [
     description: "Guest, parent, bendahara, kepala sekolah, dan admin memiliki akses sesuai tanggung jawabnya.",
   },
 ];
+
+const snapshotAccentClass = {
+  blue: "bg-blue-50 text-blue-700",
+  emerald: "bg-emerald-50 text-emerald-700",
+  slate: "bg-slate-100 text-slate-700",
+};
+
+function SnapshotMetric({
+  title,
+  value,
+  helper,
+  icon,
+  accent,
+}: {
+  title: string;
+  value: string;
+  helper: string;
+  icon: ReactNode;
+  accent: keyof typeof snapshotAccentClass;
+}) {
+  return (
+    <div className="min-w-0 p-4 sm:p-5">
+      <div className="flex min-w-0 items-center gap-2">
+        <span className={`shrink-0 rounded-md p-2 ${snapshotAccentClass[accent]}`}>{icon}</span>
+        <p className="min-w-0 truncate text-sm font-medium text-slate-500">{title}</p>
+      </div>
+      <p className="mt-3 max-w-full break-words text-xl font-bold leading-tight tracking-normal text-slate-950 tabular-nums [overflow-wrap:anywhere] sm:text-2xl lg:text-xl xl:text-[1.35rem] 2xl:text-2xl">
+        {value}
+      </p>
+      <p className="mt-3 text-sm leading-5 text-slate-500">{helper}</p>
+    </div>
+  );
+}
 
 export function LandingPage() {
   const { school, transactions, isLoading, error } = useFinance();
@@ -92,32 +128,46 @@ export function LandingPage() {
                 </span>
               </div>
             </div>
-            <div className="grid gap-4 p-5 sm:grid-cols-3">
-              <MetricCard
+            <div className="grid divide-y divide-slate-200 sm:grid-cols-3 sm:divide-x sm:divide-y-0">
+              <SnapshotMetric
                 title="Pemasukan"
                 value={formatCurrency(summary.totalIncome)}
                 helper="Approved dan public"
-                icon={<BarChart3 size={20} />}
+                icon={<Landmark size={18} />}
                 accent="emerald"
               />
-              <MetricCard
+              <SnapshotMetric
                 title="Pengeluaran"
                 value={formatCurrency(summary.totalExpense)}
                 helper="Kategori publik"
-                icon={<BarChart3 size={20} />}
+                icon={<ReceiptText size={18} />}
                 accent="blue"
               />
-              <MetricCard
+              <SnapshotMetric
                 title="Saldo"
                 value={formatCurrency(summary.balance)}
                 helper={`${summary.transactionCount} transaksi publik`}
-                icon={<ShieldCheck size={20} />}
+                icon={<WalletCards size={18} />}
                 accent="slate"
               />
             </div>
-            <div className="grid gap-4 border-t border-slate-200 p-5 lg:grid-cols-2">
-              <IncomeExpenseChart data={trend} />
-              <CategoryBreakdownChart data={expenseBreakdown} />
+            <div className="grid divide-y divide-slate-200 border-t border-slate-200 lg:grid-cols-[1.05fr_0.95fr] lg:divide-x lg:divide-y-0">
+              <section className="min-w-0 p-5">
+                <div className="mb-3 flex items-center justify-between gap-3">
+                  <h2 className="text-sm font-semibold text-slate-950">Tren bulanan</h2>
+                  <span className="rounded-md bg-slate-100 px-2 py-1 text-xs font-medium text-slate-500">
+                    {school?.activeYear ?? "-"}
+                  </span>
+                </div>
+                <IncomeExpenseChart data={trend} className="h-56 w-full sm:h-60 xl:h-64" />
+              </section>
+              <section className="min-w-0 p-5">
+                <div className="mb-3 flex items-center justify-between gap-3">
+                  <h2 className="text-sm font-semibold text-slate-950">Kategori pengeluaran</h2>
+                  <BarChart3 size={18} className="shrink-0 text-slate-400" />
+                </div>
+                <CategoryBreakdownChart data={expenseBreakdown} className="h-56 w-full sm:h-60 xl:h-64" />
+              </section>
             </div>
           </div>
         </div>

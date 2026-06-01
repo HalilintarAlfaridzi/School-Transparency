@@ -12,11 +12,12 @@ import { formatCurrency } from "../../utils/format";
 
 interface IncomeExpenseChartProps {
   data: Array<{ month: string; income: number; expense: number }>;
+  className?: string;
 }
 
-export function IncomeExpenseChart({ data }: IncomeExpenseChartProps) {
+export function IncomeExpenseChart({ data, className = "h-80 w-full" }: IncomeExpenseChartProps) {
   return (
-    <div className="h-80 w-full">
+    <div className={className}>
       <ResponsiveContainer width="100%" height="100%">
         <BarChart data={data} margin={{ top: 16, right: 16, bottom: 8, left: 0 }}>
           <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
